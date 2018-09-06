@@ -56,7 +56,7 @@ python youtube8m/utils/bin/prepare_features_for_lgbm.py path_with_merged_chunks 
 ```
 
 
-### Train LGBM
+### Train LGBM model
 
 ```
 python youtube8m/lgbm_models/bin/lgbm_train.py path_with_prepared_features/folds path_with_prepared_features/test output_path

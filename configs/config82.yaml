@@ -1,0 +1,38 @@
+src_data: /Vol1/dbstore/datasets/multimodal/youtube/numpy/video_level_folds
+model: youtube8m.video_level_nn_models.models.ResNetLike
+model_kwargs:
+  av_id_block_num: 4
+  concat_id_block_num: 4
+  dropout: 0.4
+train_dataset_reader: youtube8m.video_level_nn_models.chunked_dataset.make_video_audio_soft_labels_dataset
+val_dataset_reader: youtube8m.video_level_nn_models.chunked_dataset.make_video_audio_labels_dataset
+train_dataset_reader_kwargs:
+  soft_idx: /Vol1/dbstore/datasets/multimodal/youtube/numpy/video_level_lvl2_index/idx.pkl
+  soft_scores: /Vol1/dbstore/datasets/multimodal/youtube/numpy/video_level_lvl2_index/idx.pkl.matr.npz
+  soft_weight: 0.5
+batch_size: 1024
+mixup_class: youtube8m.video_level_nn_models.mixup_dataloader.DataLoaderWithMixUp
+mixup_args:
+  alpha: 0.3
+use_parallel_dataloader: true
+parallel_dataloader_train_kwargs:
+  epoch_size: 500000000
+  process_count: 3
+  max_queue_size: 3
+train_kwargs:
+  print_metrics_frequency: 100
+  early_stopping_patience: 100
+  max_batches_per_epoch: 1000
+  max_batches_per_val: 100
+  epochs: 80
+  lr_scheduler_ctor: torch.optim.lr_scheduler.ReduceLROnPlateau
+  lr_scheduler_kwargs:
+    factor: 0.5
+    patience: 5
+    verbose: true
+  optimizer_ctor: torch.optim.Adam
+  optimizer_kwargs:
+    lr: 0.005
+  train_metrics_def: youtube8m.utils.training.FAST_METRICS
+  val_metrics_def: youtube8m.utils.training.FULL_METRICS
+  criterion: torch.nn.functional.binary_cross_entropy_with_logits

@@ -1,0 +1,25 @@
+src_data: /Vol1/dbstore/datasets/multimodal/youtube/numpy/video_level_folds
+model: youtube8m.video_level_nn_models.models.ResNetLike
+model_kwargs:
+  dropout: 0.5
+  av_id_block_num: 5
+  concat_id_block_num: 5
+  inner_size: 2048
+dataset_reader: youtube8m.video_level_nn_models.chunked_dataset.make_video_audio_labels_dataset
+batch_size: 1024
+train_kwargs:
+  early_stopping_patience: 100
+  max_batches_per_epoch: 2000 
+  max_batches_per_val: 300
+  epochs: 30
+  lr_scheduler_ctor: torch.optim.lr_scheduler.ReduceLROnPlateau
+  lr_scheduler_kwargs:
+    factor: 0.5
+    patience: 1
+    verbose: true
+  optimizer_ctor: torch.optim.Adam
+  optimizer_kwargs:
+    lr: 0.005
+  train_metrics_def: youtube8m.utils.training.FAST_METRICS
+  val_metrics_def: youtube8m.utils.training.FULL_METRICS
+  criterion: youtube8m.utils.losses.soft_ranking_loss

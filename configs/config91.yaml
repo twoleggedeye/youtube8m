@@ -1,0 +1,31 @@
+src_data: /Vol1/dbstore/datasets/multimodal/youtube/numpy/frame_level_folds/
+model: youtube8m.sequence_models.models.BoWResnetLike
+model_kwargs: 
+  dropout: 0.1
+  av_id_block_num: 1
+  concat_id_block_num: 1
+  softmax_power: 3
+  learnable_power: true 
+  n_clusters: 4096
+dataset_reader: youtube8m.sequence_models.dataset.make_frame_level_video_audio_labels_dataset
+batch_size: 128 
+use_parallel_dataloader: true
+parallel_dataloader_train_kwargs:
+  epoch_size: 5000000
+  process_count: 2
+  max_queue_size: 2 
+train_kwargs:
+  early_stopping_patience: 100
+  max_batches_per_epoch: 2000
+  max_batches_per_val: 300
+  epochs: 60
+  lr_scheduler_ctor: torch.optim.lr_scheduler.ReduceLROnPlateau
+  lr_scheduler_kwargs:
+    factor: 0.5
+    patience: 1
+    verbose: true
+  optimizer_ctor: torch.optim.Adam
+  optimizer_kwargs:
+    lr: 0.001
+  train_metrics_def: youtube8m.utils.training.FAST_METRICS
+  val_metrics_def: youtube8m.utils.training.FULL_METRICS

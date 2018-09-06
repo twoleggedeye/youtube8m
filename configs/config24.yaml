@@ -1,0 +1,29 @@
+src_data: /Vol1/dbstore/datasets/multimodal/youtube/numpy/frame_level_clust_folds_100k/
+model: youtube8m.video_level_nn_models.models.GlebNet
+model_kwargs:
+  inner_size: 2048
+  av_id_block_num: 1
+  concat_id_block_num: 1
+  dropout: 0
+dataset_reader: youtube8m.video_level_nn_models.chunked_dataset.make_video_audio_labels_dataset
+batch_size: 128
+use_parallel_dataloader: true
+parallel_dataloader_train_kwargs:
+  epoch_size: 2000000
+  process_count: 3
+  max_queue_size: 3
+train_kwargs:
+  max_batches_per_epoch: 2000
+  max_batches_per_val: 200
+  print_metrics_frequency: 10
+  epochs: 100
+  lr_scheduler_ctor: torch.optim.lr_scheduler.ReduceLROnPlateau
+  lr_scheduler_kwargs:
+    factor: 0.5
+    patience: 1
+    verbose: true
+  optimizer_ctor: torch.optim.Adam
+  optimizer_kwargs:
+    lr: 0.005
+  train_metrics_def: youtube8m.utils.training.FULL_METRICS
+  val_metrics_def: youtube8m.utils.training.FULL_METRICS

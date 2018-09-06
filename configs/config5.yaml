@@ -23,7 +23,7 @@ train_kwargs:
     verbose: true
   optimizer_ctor: torch.optim.Adam
   optimizer_kwargs:
-    lr: 0.01
+    lr: 0.02
   train_metrics_def: youtube8m.utils.training.FAST_METRICS
   val_metrics_def: youtube8m.utils.training.FULL_METRICS
   criterion: torch.nn.functional.binary_cross_entropy_with_logits

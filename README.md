@@ -58,7 +58,7 @@ python youtube8m/utils/bin/prepare_features_for_lgbm.py path_with_merged_chunks 
 ```
 
 
-### Train LGBM model
+### Train LGBM model :tree:
 
 ```
 python youtube8m/lgbm_models/bin/lgbm_train.py path_with_prepared_features/folds path_with_prepared_features/test output_path
@@ -72,5 +72,5 @@ python youtube8m/utils/bin/build_soft_labels_index.py lgbm_output_path lgbm_path
 
 Then, train tf models separately: EnsembleModelA, EnsembleModelB, …, EnsembleModelF and use OOF predictions for training EnsembleModel. Note, you need to use correct soft_labels_path in NumpyY8MAggFeaturesReader.
 
-After this procedure, you will be able to run eval.py and inference.py and get final predictions and a final metagraph.
+After this procedure you will be able to run eval.py and inference.py and get final predictions and a final metagraph.
 

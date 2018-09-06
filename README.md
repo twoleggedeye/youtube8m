@@ -1,5 +1,7 @@
-# Youtube-8m repository
+# Label Denoising with Large Ensembles of Heterogeneous Neural Networks
+Samsung AI Center Moscow solution of the 2nd YouTube-8M Video Understanding Challenge.
 
+## Reproduce results
 ### First, prepare the data (convert it to numpy, split into several folds):
 
 ```

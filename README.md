@@ -43,7 +43,7 @@ python youtube8m/utils/bin/average_test_predictions.py path_to_model
 
 If you used frame-level features for training a model, add flag `--frame-level` to the command.
 
-3) Add path_to_model to youtube8m/utils/bin/ready_models
+3) Add path_to_model to youtube8m/utils/bin/ready_models.
 
 4) Merge predictions from different models
 
